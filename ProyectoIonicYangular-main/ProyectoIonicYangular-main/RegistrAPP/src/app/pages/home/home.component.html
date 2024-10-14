@@ -1,0 +1,40 @@
+<app-header></app-header>
+<ion-content>
+  <ion-list class="asignaturas-list">
+    <ion-title class="titulo-principal">Tus asignaturas</ion-title>
+
+    <div *ngIf="rolUsuario === 'docente'" class="texto-rol">
+      <p>Aquí puede ver el horario de las asignaturas a las que usted realiza clases:</p>
+    </div>
+
+    <div *ngIf="rolUsuario === 'alumno'" class="texto-rol">
+      <p>Aquí puede ver el horario de las asignaturas a las que está inscrito:</p>
+    </div>
+
+    <!-- Tabla de asignaturas -->
+    <table class="tabla-asignaturas">
+      <thead>
+        <tr>
+          <th>Asignatura</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let asignatura of asignaturas">
+          <!-- Nombre de la asignatura -->
+          <td>{{ asignatura.nombre }}</td>
+
+          <!-- Botón para ver detalles de la asignatura -->
+          <td>
+            <ion-button color="primary" (click)="verDetalles(asignatura)">
+              Ver Detalles
+            </ion-button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ion-list>
+</ion-content>
+<app-footer></app-footer>
+
+

@@ -1,0 +1,102 @@
+/* Estilos generales */
+h2 {
+  font-size: 2.5rem; /* Aumentado */
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+p {
+  font-size: 1.4rem; /* Aumentado */
+  margin: 0.5rem 0;
+  color: #34495e;
+}
+
+/* Contenedor para centrar */
+.contenedor {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(90vh - 250px); /* Ajustado para subir un poco el contenido */
+  padding: 2rem;
+  margin-bottom: 230px;
+  margin-top: 25px;
+}
+
+/* Tabla de detalles de la asignatura */
+.tabla-detalles {
+  width: 100%;
+  max-width: 800px;
+  margin: 1.5rem auto; /* Reducido para subir contenido */
+  border-collapse: collapse;
+  background-color: #ecf0f1;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.tabla-detalles td {
+  padding: 1.2rem; /* Aumentado */
+  border-bottom: 1px solid #bdc3c7;
+  color: black;
+}
+
+.tabla-detalles td:first-child {
+  font-weight: bold;
+  width: 30%;
+  text-align: right;
+}
+
+.tabla-detalles td:last-child {
+  width: 70%;
+  text-align: left;
+}
+
+/* Botón general */
+button {
+  margin-top: 100px;
+  background-color: #3498db;
+  color: white;
+  padding: 1rem 2rem; /* Aumentado */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2rem; /* Aumentado */
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+/* Estilos para las acciones */
+.acciones-docente, .acciones-alumno {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+/* Estilos específicos para docentes */
+.acciones-docente p {
+  color: #27ae60;
+}
+
+/* Estilos específicos para alumnos */
+.acciones-alumno p {
+  color: #e67e22;
+}
+
+body {
+  background-color: #fff9e6 !important; /* Color amarillo suave */
+  margin: 0; /* Asegúrate de que no haya margen extra */
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+
+
+
+
+
+
