@@ -11,6 +11,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { DocenteComponent } from './docente/docente.component';
 import { AlumnoComponent } from './alumno/alumno.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RegistrarComponent } from './registrar/registrar.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { HttpClientModule } from '@angular/common/http';
     LogoutComponent,
     ResetPasswordComponent,
     DocenteComponent,
-    AlumnoComponent
+    AlumnoComponent,
+    RegistrarComponent
   ],
   imports: [
     CommonModule,

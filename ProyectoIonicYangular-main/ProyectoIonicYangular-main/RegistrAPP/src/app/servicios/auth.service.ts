@@ -59,7 +59,42 @@ export class AuthService {
     console.log(`Enlace de recuperación de contraseña enviado a ${email}`);
   }
 
+  async registrarNuevoUsuario(usuario: any) {
+    const url = 'https://670d99fa073307b4ee43fa57.mockapi.io/api/asistencia/';
+    try {
+      // Verifica si el usuario ya existe antes de registrarlo
+      const usuariosExistentes = await this.obtenerUsuarios();
+      const usuarioExistente = usuariosExistentes.find(u => u.usuario === usuario.usuario);
+
+      if (usuarioExistente) {
+        throw new Error('El usuario ya existe');
+      }
+
+      const res = await this.webservice.request('POST', url, 'users', usuario);
+      console.log('Usuario registrado con éxito', res);
+      return res; // Devuelve la respuesta exitosa del registro
+    } catch (error) {
+      console.error('Error al registrar usuario:', error);
+      throw error; // Propaga el error para manejarlo en el componente
+    }
+  }
+
+    // Método para verificar si el usuario ya existe
+    async obtenerUsuarios(): Promise<UsuarioAPI[]> {
+      const url = 'https://670d99fa073307b4ee43fa57.mockapi.io/api/asistencia/';
+      try {
+        const res = await this.webservice.request('GET', url, 'users') as Array<UsuarioAPI>;
+        return res; // Devuelve la lista de usuarios existentes
+      } catch (error) {
+        console.error('Error al obtener usuarios:', error);
+        throw error; // Manejo del error
+      }
+    }
+
 }
+
+
+
 
 
 
