@@ -2,14 +2,7 @@
 <ion-content>
   <ion-list class="asignaturas-list">
     <ion-title class="titulo-principal">Tus asignaturas</ion-title>
-
-    <div *ngIf="rolUsuario === 'docente'" class="texto-rol">
       <p>Aquí puede ver el horario de las asignaturas a las que usted realiza clases:</p>
-    </div>
-
-    <div *ngIf="rolUsuario === 'alumno'" class="texto-rol">
-      <p>Aquí puede ver el horario de las asignaturas a las que está inscrito:</p>
-    </div>
 
     <!-- Tabla de asignaturas -->
     <table class="tabla-asignaturas">
@@ -26,15 +19,20 @@
 
           <!-- Botón para ver detalles de la asignatura -->
           <td>
-            <ion-button color="primary" (click)="verDetalles(asignatura)">
-              Ver Detalles
+            <ion-button color="primary" (click)="generarQR(asignatura.id)">
+              Generar QR
             </ion-button>
           </td>
+
         </tr>
+
       </tbody>
     </table>
+    <div class="mx-auto text-center">
+      <h2>Código QR</h2>
+      <h3>{{ qrData }}</h3>
+      <canvas #qrCanvas></canvas>
+    </div>
   </ion-list>
 </ion-content>
 <app-footer></app-footer>
-
-
