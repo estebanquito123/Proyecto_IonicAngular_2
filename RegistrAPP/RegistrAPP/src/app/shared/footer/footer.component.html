@@ -1,0 +1,17 @@
+<div class="pie">
+  <h1>Pie de página</h1>
+  <!-- Verifica si el usuario está logueado -->
+  <p *ngIf="usuario">
+    <a (click)="redirigirHome()">Home</a> <!-- Llama a la función para redirigir según el rol -->
+  </p>
+  <p *ngIf="usuario">
+    <a [routerLink]="['/logout']">Logout</a>
+  </p>
+  <!-- Si no está logueado, muestra las opciones de Login y Crear Cuenta -->
+  <p *ngIf="!usuario">
+    <a [routerLink]="['/']">Login</a>
+  </p>
+  <p *ngIf="!usuario">
+    <a [routerLink]="['registrar']">Crear Cuenta</a>
+  </p>
+</div>
