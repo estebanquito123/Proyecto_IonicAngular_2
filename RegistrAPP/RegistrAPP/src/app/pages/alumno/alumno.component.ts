@@ -37,7 +37,6 @@ export class AlumnoComponent implements OnInit, OnDestroy {
   EscanearQR(id: string) {
     this.mensajeQR = 'Escaneando QR...'; // Actualizar el mensaje cuando se haga clic
     console.log(`Escaneando QR de la asignatura con ID: ${id}`);
-    // Aquí puedes agregar la lógica para escanear el QR si la tienes
   }
 
 }
