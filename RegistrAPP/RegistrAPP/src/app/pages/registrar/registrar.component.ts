@@ -44,6 +44,12 @@ export class RegistrarComponent {
     this.successMessage = '';
     this.registroFallido = false;
 
+    if (!this.usuario || !this.clave || !this.nombreCompleto || !this.rol) {
+      this.errorMessage = 'Todos los campos son obligatorios.';
+      await this.mostrarAlerta('Error', this.errorMessage);  // Mostrar alerta con el mensaje de error
+      return;  // Detener el proceso de registro si hay campos vacíos
+    }
+
     // Verificar si el usuario ya existe
     const usuarioExiste = await this.validarUsuarioExistente(this.usuario);
 
