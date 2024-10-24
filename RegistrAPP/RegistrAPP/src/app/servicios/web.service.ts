@@ -1,3 +1,4 @@
+//web.service.ts
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 
@@ -14,7 +15,6 @@ export class WebService {
     return new Promise((resolve) => {
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
-        // 'Authorization': 'Bearer ${this.token}'
       }); // Agregar cabeceras personalizadas para la petición HTTP.  // A
 
       if (type == 'POST') {
