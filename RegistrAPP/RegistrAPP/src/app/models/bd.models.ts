@@ -1,7 +1,8 @@
-export interface UsuarioAPI {
-  id: number;
-  nombreCompleto: string;
+export interface User {
+  uid: string;
+  nombre: string;
   usuario: string;
-  clave:string;
+  email: string;
+  password:string;
   rol: string;
 }

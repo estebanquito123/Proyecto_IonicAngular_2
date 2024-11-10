@@ -1,4 +1,3 @@
-<!-- registrar.component.html -->
 <ion-content>
   <app-header></app-header>
 
@@ -6,40 +5,70 @@
     <!-- Contenido de Registro -->
     <p>Registrar nuevo usuario</p>
 
+    <!-- Campo de Nombre -->
     <ion-item>
       <ion-label position="floating">Usuario</ion-label>
-      <ion-input [(ngModel)]="usuario"></ion-input>
+      <app-custom-input
+        autocomplete="name"
+        icon="mail-outline"
+        [control]="form.controls.nombre"
+        type="text"
+        label="nombre">
+      </app-custom-input>
+      <div class="validators" *ngIf="form.controls.nombre.errors && form.controls.nombre.touched">
+        <div *ngIf="form.controls.nombre.errors?.['required']">El nombre es requerido</div>
+      </div>
     </ion-item>
 
+    <!-- Campo de Correo -->
     <ion-item>
-      <ion-label position="floating">Clave</ion-label>
-      <ion-input [(ngModel)]="clave" type="password"></ion-input>
+      <ion-label position="floating">Correo</ion-label>
+      <app-custom-input
+        autocomplete="email"
+        icon="mail-outline"
+        [control]="form.controls.email"
+        type="email"
+        label="correo">
+      </app-custom-input>
+      <div class="validators" *ngIf="form.controls.email.errors && form.controls.email.touched">
+        <div *ngIf="form.controls.email.errors?.['required']">El correo es requerido</div>
+        <div *ngIf="form.controls.email.errors?.['email']">Ingrese un correo válido</div>
+      </div>
     </ion-item>
 
+    <!-- Campo de Contraseña -->
     <ion-item>
-      <ion-label position="floating">Nombre Completo</ion-label>
-      <ion-input [(ngModel)]="nombreCompleto"></ion-input>
+      <ion-label position="floating">Contraseña</ion-label>
+      <app-custom-input
+        autocomplete="password"
+        [control]="form.controls.password"
+        type="password"
+        label="contraseña">
+      </app-custom-input>
+      <div class="validators" *ngIf="form.controls.password.errors && form.controls.password.touched">
+        <div *ngIf="form.controls.password.errors?.['required']">La contraseña es requerida</div>
+        <div *ngIf="form.controls.password.errors?.['minLength']">La contraseña debe tener un mínimo de 6 caracteres</div>
+      </div>
     </ion-item>
 
+    <!-- Campo de Rol con custom-select -->
     <ion-item>
       <ion-label position="floating">Rol</ion-label>
-      <ion-select [(ngModel)]="rol">
-        <ion-select-option value="docente">Docente</ion-select-option>
-        <ion-select-option value="alumno">Alumno</ion-select-option>
-      </ion-select>
+      <app-custom-select
+        icon="person-outline"
+        label="Seleccione un rol"
+        placeholder="Seleccione un rol"
+        [control]="form.controls.rol"
+        [options]="[
+          { label: 'Docente', value: 'docente' },
+          { label: 'Alumno', value: 'alumno' }
+        ]">
+      </app-custom-select>
     </ion-item>
 
-    <ion-button (click)="registrar()">Registrar</ion-button>
-
-    <!-- Mensajes de éxito y de error en texto -->
-    <div *ngIf="successMessage" style="color: green;" class="p-3">
-      <h2>{{ successMessage }}</h2>
-    </div>
-
-    <div *ngIf="errorMessage" style="color: rgb(255, 0, 0);" class="p-3">
-      <h2>{{ errorMessage }}</h2>
-    </div>
+    <ion-button expand="block" fill="click" mode="ios" type="submit" [disabled]="form.invalid">Registrate</ion-button>
   </div>
 
   <app-footer></app-footer>
 </ion-content>
+
