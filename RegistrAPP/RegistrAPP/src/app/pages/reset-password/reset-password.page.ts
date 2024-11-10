@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { AuthService } from 'src/app/servicios/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,7 +12,7 @@ export class ResetPasswordPage {
   mensaje: string = ''; // Mensaje para mostrar al usuario
   private router= inject(Router)
 
-  constructor() {}
+  constructor(private authService: AuthService) {}
 
   enviarEnlace(): void {
     if (!this.correo) {
