@@ -2,7 +2,7 @@
 import { Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import QRious from 'qrious';
 import { Subscription } from 'rxjs';
-import { UsuarioAPI } from 'src/app/models/bd.models';
+import { Usuario } from 'src/app/models/bd.models';
 import { AuthService } from 'src/app/servicios/auth.service';
 
 @Component({
