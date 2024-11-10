@@ -19,7 +19,7 @@ export class AuthService {
 
   constructor(private afAuth: AngularFireAuth, private firestore: AngularFirestore) {}
 
-  // Método de inicio de sesión usando email
+  // Método de inicio de sesión usando email y Firebase Authentication
   async login(email: string, password: string) {
     try {
       const userCredential = await this.afAuth.signInWithEmailAndPassword(email, password);
@@ -30,8 +30,13 @@ export class AuthService {
       const userDoc = await this.firestore.collection('usuarios').doc(userCredential.user.uid).get().toPromise();
       this.usuarioCompletoSubject.next(userDoc.data() as Usuario);
     } catch (error) {
-      this.isAuthenticatedSubject.next(false);
-      console.error("Error en el inicio de sesión:", error);
+      // Verifica si el error es porque el correo ya está en uso
+      if (error.code === 'auth/email-already-in-use') {
+        throw new Error('El correo electrónico ya está en uso. Por favor, usa otro correo.');
+      } else {
+        // Lanza el error tal como está para otros errores
+        throw new Error('Error al registrar el usuario. Inténtalo de nuevo.');
+      }
     }
   }
 
@@ -42,27 +47,37 @@ export class AuthService {
     this.usuarioCompletoSubject.next(null);
   }
 
-  // Método de registro usando email y password
-  async registrarNuevoUsuario(email: string, password: string, nombreCompleto: string, rol: string) {
+  // Método de registro que guarda en Firebase Authentication y Firestore
+  async registrarNuevoUsuario(nombreCompleto: string,email: string, password: string,  rol: string) {
     try {
+      // Crear el usuario en Firebase Authentication
       const userCredential = await this.afAuth.createUserWithEmailAndPassword(email, password);
       const uid = userCredential.user.uid;
 
+      // Crear un objeto usuario con el modelo especificado, sin incluir la contraseña
       const nuevoUsuario: Usuario = {
-        uid,
+        uid,                    // UID proporcionado por Firebase Authentication
         nombreCompleto,
         email,
-        usuario: '',  // Este campo puede quedar vacío o eliminarse si no se utiliza
-        password,
+        password: '',           // No es seguro almacenar contraseñas en Firestore
         rol
       };
 
-      // Guarda el nuevo usuario en Firestore
+      // Guarda el nuevo usuario en Firestore en la colección 'usuarios'
       await this.firestore.collection('usuarios').doc(uid).set(nuevoUsuario);
       this.usuarioCompletoSubject.next(nuevoUsuario);
+
+      return true;
     } catch (error) {
-      console.error("Error en el registro de usuario:", error);
+      // Verifica si el error es porque el correo ya está en uso
+      if (error.code === 'auth/email-already-in-use') {
+        throw new Error('El correo electrónico ya está en uso. Por favor, usa otro correo.');
+      } else {
+        // Lanza el error tal como está para otros errores
+        throw new Error('Error al registrar el usuario. Inténtalo de nuevo.');
+      }
     }
+
   }
 
   enviarRecuperacionContrasena(email: string): void {

@@ -2,16 +2,16 @@
   <app-header></app-header>
   <p>Registrar nuevo usuario</p>
   <ion-item>
+    <ion-label position="floating">Nombre Completo</ion-label>
+    <ion-input [(ngModel)]="nombreCompleto"></ion-input>
+  </ion-item>
+  <ion-item>
     <ion-label position="floating">Email</ion-label>
     <ion-input [(ngModel)]="email" type="email"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label position="floating">Clave</ion-label>
     <ion-input [(ngModel)]="password" type="password"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label position="floating">Nombre Completo</ion-label>
-    <ion-input [(ngModel)]="nombreCompleto"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label position="floating">Rol</ion-label>
@@ -22,3 +22,4 @@
   </ion-item>
   <ion-button (click)="registrar()">Registrar</ion-button>
 </ion-content>
+<app-footer></app-footer>
