@@ -1,11 +1,11 @@
-// docente.component.ts
+// alumno.page.ts
 import { Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Usuario } from 'src/app/models/bd.models';
 import { AuthService } from 'src/app/servicios/auth.service';
 
 @Component({
-  selector: 'app-docente',
+  selector: 'app-alumno',
   templateUrl: './alumno.page.html',
   styleUrls: ['./alumno.page.scss']
 })

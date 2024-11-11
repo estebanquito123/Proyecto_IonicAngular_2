@@ -1,3 +1,4 @@
+//registrar.page.ts
 import { Component, inject, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -34,7 +35,7 @@ export class RegistrarPage implements OnInit {
     try {
       const resultado = await this.authService.registrarNuevoUsuario(email, password, nombreCompleto, rol);
       if (resultado) {
-        this.mostrarAlerta('Éxito', 'Usuario registrado exitosamente en Firebase Authentication y Firestore');
+        this.mostrarAlerta('Éxito', 'Usuario registrado exitosamente');
       }
     } catch (error) {
       this.mostrarAlerta('Error', error.message);

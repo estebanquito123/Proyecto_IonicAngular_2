@@ -1,15 +1,14 @@
-import { inject, Injectable } from '@angular/core';
-import {AngularFireAuth} from '@angular/fire/compat/auth';
-import { getAuth, sendPasswordResetEmail} from 'firebase/auth'
+import { Injectable, inject } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseService {
-
-  auth = inject(AngularFireAuth)
+  private auth = inject(AngularFireAuth);
 
   sendRecoveryEmail(email: string) {
-    return sendPasswordResetEmail(getAuth(), email);
+    return this.auth.sendPasswordResetEmail(email); // Utiliza la instancia de AngularFireAuth
   }
 }
+

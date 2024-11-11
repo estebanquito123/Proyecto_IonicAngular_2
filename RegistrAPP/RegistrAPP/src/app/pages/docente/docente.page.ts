@@ -1,4 +1,4 @@
-// docente.component.ts
+// docente.page.ts
 import { Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import QRious from 'qrious';
 import { Subscription } from 'rxjs';

@@ -1,3 +1,4 @@
+<!-- login.page.html -->
 <ion-content>
   <app-header></app-header>
   <p>Debe iniciar sesión para utilizar la app</p>
@@ -30,6 +31,7 @@
     <!-- Botón de Inicio de Sesión -->
     <ion-button expand="block" type="submit" [disabled]="loginForm.invalid" >Iniciar sesión</ion-button>
   </form>
+  <p><a [routerLink]="['/reset-password']" >¿Olvidaste tu contraseña? Haz click aqui</a></p>
 
   <app-footer></app-footer>
 </ion-content>
