@@ -24,28 +24,28 @@ export class AuthService {
     try {
       const userCredential = await this.afAuth.signInWithEmailAndPassword(email, password);
       this.isAuthenticatedSubject.next(true);
-      this.usuarioSubject.next(userCredential.user.email);
 
       // Obtenemos datos adicionales del usuario desde Firestore usando su UID
       const userDoc = await this.firestore.collection('usuarios').doc(userCredential.user.uid).get().toPromise();
-      this.usuarioCompletoSubject.next(userDoc.data() as Usuario);
+      const usuarioData = userDoc.data() as Usuario;
+      this.usuarioCompletoSubject.next(usuarioData); // Almacena el objeto completo del usuario
+
+      return usuarioData; // Retorna el usuario completo, incluido su rol
     } catch (error) {
-      // Verifica si el error es porque el correo ya está en uso
-      if (error.code === 'auth/email-already-in-use') {
-        throw new Error('El correo electrónico ya está en uso. Por favor, usa otro correo.');
-      } else {
-        // Lanza el error tal como está para otros errores
-        throw new Error('Error al registrar el usuario. Inténtalo de nuevo.');
-      }
+      this.isAuthenticatedSubject.next(false);
+      throw error; // Lanza el error para manejarlo en el componente
     }
   }
+
+
 
   logout(): void {
     this.afAuth.signOut();
     this.isAuthenticatedSubject.next(false);
     this.usuarioSubject.next('');
-    this.usuarioCompletoSubject.next(null);
+    this.usuarioCompletoSubject.next(null); // Limpia los datos completos del usuario
   }
+
 
   // Método de registro que guarda en Firebase Authentication y Firestore
   async registrarNuevoUsuario(nombreCompleto: string,email: string, password: string,  rol: string) {
@@ -77,7 +77,6 @@ export class AuthService {
         throw new Error('Error al registrar el usuario. Inténtalo de nuevo.');
       }
     }
-
   }
 
   enviarRecuperacionContrasena(email: string): void {

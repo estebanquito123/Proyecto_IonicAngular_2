@@ -1,6 +1,8 @@
+//footer.component.ts
 import { Component, inject, OnInit } from '@angular/core';
-import { Router } from '@angular/router';  // Importa Router para la navegación
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/servicios/auth.service';
+import { Usuario } from 'src/app/models/bd.models';
 
 @Component({
   selector: 'app-footer',
@@ -9,15 +11,13 @@ import { AuthService } from 'src/app/servicios/auth.service';
 })
 export class FooterComponent implements OnInit {
 
-  usuario: any; // Objeto que contendrá los datos del usuario, incluido el rol
-  private authService = inject(AuthService); // Inyecta el servicio de autenticación
-  private router = inject(Router); // Inyecta el router para la navegación
-
-  constructor() { }
+  usuario: Usuario | null = null; // Objeto que contendrá los datos del usuario, incluido el rol
+  private authService = inject(AuthService);
+  private router = inject(Router);
 
   ngOnInit() {
-    // Suscribirse al observable para obtener los datos del usuario (incluyendo rol)
-    this.authService.usuario$.subscribe(usuario => {
+    // Suscribirse al observable para obtener los datos completos del usuario (incluido el rol)
+    this.authService.usuarioCompleto$.subscribe(usuario => {
       this.usuario = usuario;
     });
   }
@@ -31,4 +31,9 @@ export class FooterComponent implements OnInit {
     }
   }
 
+  logout() {
+    // Llama a logout en AuthService y redirige al inicio de sesión
+    this.authService.logout();
+    this.router.navigate(['/']); // Redirige al inicio de sesión después de cerrar sesión
+  }
 }

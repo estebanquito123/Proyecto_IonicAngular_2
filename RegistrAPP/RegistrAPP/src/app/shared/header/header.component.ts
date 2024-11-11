@@ -7,22 +7,21 @@ import { AuthService } from 'src/app/servicios/auth.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent  implements OnInit, OnDestroy {
-  usuario: string; // Campo para almacenar el nombre del usuario
-  private authService = inject(AuthService); // Obtener el servicio de autenticación
-  subscriptionAuthService: Subscription; // Subscripción para el observable del estado de autenticación
-
-  constructor() { }
+export class HeaderComponent implements OnInit, OnDestroy {
+  usuario: string; // Campo para almacenar el nombre completo del usuario
+  private authService = inject(AuthService);
+  subscriptionAuthService: Subscription;
 
   ngOnInit() {
-    this.subscriptionAuthService = this.authService.usuario$.subscribe(usuario => {
-      this.usuario = usuario
-      console.log('Header:', usuario);
-    }); // Obtiene el nombre del usuario logueado
+    this.subscriptionAuthService = this.authService.usuarioCompleto$.subscribe(usuarioCompleto => {
+      if (usuarioCompleto) {
+        this.usuario = usuarioCompleto.nombreCompleto; // Muestra el nombre completo del usuario
+      }
+    });
   }
 
   ngOnDestroy() {
     this.subscriptionAuthService?.unsubscribe(); // Desuscribirse del observable del estado de autenticación
   }
-
 }
+
